@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Category;
 use Exception;
@@ -11,10 +12,11 @@ use Exception;
 class CategoryController extends Controller
 {
     //
+    use ApiResponse;
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = CategoryResource::collection(Category::all());
 
         // return $this->successResponse(compact('categories'), "All Categories are retrived", 200);
         return response()->json([

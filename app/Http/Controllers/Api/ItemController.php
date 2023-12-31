@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreItemRequest;
+use App\Http\Resources\ItemResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Category;
 use App\Models\Item;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    use ApiResponse;
 
     protected $discount_service;
 
@@ -23,7 +25,7 @@ class ItemController extends Controller
 
     public function index()
     {
-        $items = Item::all();
+        $items = ItemResource::collection(Item::all());
 
         return response()->json([
             'items' => $items,
@@ -51,7 +53,7 @@ class ItemController extends Controller
             $message = "Items Created Successfully";
             return $this->successResponse($item, $message, 201);
         } catch (Exception $e) {
-            return $this->errorResponse("Error => {$e->getMessage()} in {$e->getLine()}", 400);
+            return $this->errorResponse("Error => {$e->getMessage()}!!", 400);
         }
     }
 
@@ -67,7 +69,7 @@ class ItemController extends Controller
             }
             return $this->successResponse(null, "Discount applied successfully", 200);
         } catch (Exception $e) {
-            return $this->errorResponse("Error => {$e->getMessage()} in {$e->getLine()}", 400);
+            return $this->errorResponse("Error => {$e->getMessage()}!!!", 400);
         }
     }
 
