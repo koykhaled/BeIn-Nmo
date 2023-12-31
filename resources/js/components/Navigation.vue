@@ -5,7 +5,7 @@
                 <li>
                     <router-link to="/">
                         <a href="/" class="header__logo">
-                            <p><img src="./" alt="">logo</p>
+                            <p><img src="./" alt="" />logo</p>
                             <h2 class="logo-text">BeInMedia</h2>
                         </a>
                     </router-link>
@@ -50,27 +50,12 @@
                         </a>
                     </router-link>
                 </li>
-                <li>
-                    <router-link to="/">
-                        <a title="logout" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <span
-                                class="icon">
-                                <ion-icon name="log-out-outline"></ion-icon>
-                            </span>
-                            <span class="title">Logout</span>
-                        </a>
-                    </router-link>
-                    <form id="logout-form" action="#" method="post">
-                        <!-- @csrf -->
-                    </form>
-
-                </li>
             </ul>
         </div>
     </div>
 </template>
 <script>
-    export default {
-        name: 'Navigation',
-    }
+export default {
+    name: "Navigation",
+};
 </script>
