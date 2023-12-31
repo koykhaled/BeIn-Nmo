@@ -90,8 +90,7 @@ async function deleteCategory(categorySlug) {
                             v-if="categories.length > 0"
                         >
                             <td>{{ category.name }}</td>
-                            <td v-if="category.parent_id == null">No Parent</td>
-                            <td v-else>{{ category.parent }}</td>
+                            <td>{{ category.parent }}</td>
                             <td>
                                 <button
                                     class="btn-delete"
