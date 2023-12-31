@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,13 @@ Route::group(['prefix' => 'categories'], function () {
     Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/new-category', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/{slug}', [CategoryController::class, 'delete'])->name('categories.delete');
+});
+
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', [ItemController::class, 'index'])->name('items.index');
+    Route::post('/', [ItemController::class, 'store'])->name('items.store');
+
+    Route::post('/apply-discount', [ItemController::class, 'applyDiscount'])->name('items.apply-discount');
+
+    Route::delete('/{slug}', [ItemController::class, 'delete'])->name('items.delete');
 });
