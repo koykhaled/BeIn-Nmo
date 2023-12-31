@@ -18,6 +18,11 @@ class ItemController extends Controller
 
     protected $discount_service;
 
+    /**
+     * @param DiscountService $discount_service
+     * apply discount by type 
+     */
+
     public function __construct(DiscountService $discount_service)
     {
         $this->discount_service = $discount_service;

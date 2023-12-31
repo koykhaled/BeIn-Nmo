@@ -24,7 +24,7 @@
                     <router-link to="/categories">
                         <a href="#">
                             <span class="icon">
-                                <ion-icon name="person-outline"></ion-icon>
+                                <ion-icon name="copy-outline"></ion-icon>
                             </span>
                             <span class="title">Categories</span>
                         </a>
@@ -34,7 +34,7 @@
                     <router-link to="/items">
                         <a href="#">
                             <span class="icon">
-                                <ion-icon name="book-outline"></ion-icon>
+                                <ion-icon name="fast-food-outline"></ion-icon>
                             </span>
                             <span class="title">Items</span>
                         </a>
@@ -44,7 +44,7 @@
                     <router-link to="/items/apply-discount">
                         <a href="#">
                             <span class="icon">
-                                <ion-icon name="people-outline"></ion-icon>
+                                <ion-icon name="pricetag-outline"></ion-icon>
                             </span>
                             <span class="title">Discounts</span>
                         </a>
