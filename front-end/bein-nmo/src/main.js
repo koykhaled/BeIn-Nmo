@@ -5,12 +5,17 @@ import router from './router/index';
 
 import axios from 'axios';
 
+import store from './store/store';
+
 
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.defaults.baseURL = 'http://localhost:8000';
+const app = createApp(App);
 
-createApp(App).use(router).mount('#app')
+app.use(router)
+app.use(store)
+app.mount('#app')
 
 
 
