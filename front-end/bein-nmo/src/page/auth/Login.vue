@@ -14,10 +14,13 @@
                 </div>
             </div>
             <div class="layout__body">
-                <ul v-if="Object.keys(this.errorMessage).length > 0">
-                    <li class="li-error">{{ errorMessage }}</li>
-                </ul>
-                <h2 class="auth__tagline">Find your study partner</h2>
+                <div
+                    class="alert alert-danger"
+                    v-if="backendErrors"
+                    v-for="error in backendErrors"
+                >
+                    {{ error }}
+                </div>
                 <form @submit.prevent="login">
                     <div class="form__group form__group">
                         <label for="room_name">Email</label>
@@ -28,6 +31,9 @@
                             placeholder="e.g. khaled@example.com"
                             v-model="email"
                         />
+                        <div class="error" v-if="errors.email">
+                            {{ errors.email }}
+                        </div>
                     </div>
                     <div class="form__group">
                         <label for="password">Password</label>
@@ -38,6 +44,9 @@
                             placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                             v-model="password"
                         />
+                        <div class="error" v-if="errors.password">
+                            {{ errors.password }}
+                        </div>
                     </div>
 
                     <button class="btn btn--main" type="submit">
@@ -71,34 +80,45 @@
 </template>
 <script>
 import axios from "axios";
+import SignupValidations from "../../services/SignupValidations";
 export default {
     data() {
         return {
-            errorMessage: "",
             email: "",
             password: "",
+            errors: [],
+            error: "",
+            backendErrors: [],
         };
     },
     methods: {
-        login() {
+        async login() {
             var mythis = this;
-            const getToken = async () => {
-                await axios.get("/sanctum/csrf-cookie");
-            };
-            axios
+            let validations = new SignupValidations(this.email, this.password);
+
+            this.errors = validations.checkValidations();
+            if (this.errors.length) {
+                return false;
+            }
+            this.error = "";
+
+            await axios
                 .post("/login", {
                     email: this.email,
                     password: this.password,
                 })
                 .then((res) => {
-                    getToken();
                     this.$router.push("/");
+                    this.email = "";
+                    this.password = "";
+                    this.errors = [];
+                    this.backendErrors = [];
+                    this.error = "";
                 })
-
                 .catch(function (error) {
                     if (error.response) {
                         if (error.response.status !== 201) {
-                            mythis.errorMessage = error.response.data.message;
+                            this.backendErrors = error.response.data.message; // Store backend error messages
                         }
                     } else if (error.request) {
                         console.log(error.request);
