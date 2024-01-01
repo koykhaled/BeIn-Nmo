@@ -21,7 +21,9 @@ class ItemResource extends JsonResource
         $category = Category::where('id', $item->category_id)->first();
 
         return [
+            'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'price' => $this->price,
             'discount_price' => $this->discount_price,
             'category' => $category->name
