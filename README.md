@@ -1,4 +1,4 @@
-<h1>Resturant Management System</h1>
+<h1>Resturant Management System using Laravel + Vuejs 3</h1>
 <ul>
     <li>Add Items and Delete Them</li>
     <li>Apply Discount on Items and Categories
