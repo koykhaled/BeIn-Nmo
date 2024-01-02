@@ -8,6 +8,7 @@ use App\Http\Resources\ItemResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Menu;
 use App\Services\DiscountService;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,9 +31,12 @@ class ItemController extends Controller
 
     public function index()
     {
-        $items = ItemResource::collection(Item::all());
+        // when we add authentication system then we need to update value of id into Auth::id()
+        $menu = Menu::where('user_id', '1')->first();
+        $items = ItemResource::collection($menu->items);
 
         return response()->json([
+            'menu' => $menu->name,
             'items' => $items,
             'message' => "All Categories"
         ], 200);
@@ -43,6 +47,10 @@ class ItemController extends Controller
     {
 
         try {
+            // when we add authentication system then we need to update value of id into Auth::id()
+            $menu = Menu::where('user_id', '1')->first();
+
+
             $category = Category::where('id', $request->category_id)->first();
 
             if (count($category->children) > 0) {
@@ -52,6 +60,7 @@ class ItemController extends Controller
             $item = $category->items()->create([
                 'name' => $request->name,
                 'description' => $request->description,
+                'menu_id' => $menu->id,
                 'price' => $request->price,
             ]);
 
