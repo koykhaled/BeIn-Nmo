@@ -46,7 +46,7 @@ class ItemController extends Controller
 
         return response()->json([
             'computed_discount' => $computed_discount,
-            'computed_price' => $computed_discount,
+            'computed_price' => $computed_price,
             'menu' => $menu->name,
             'items' => $items,
             'message' => "All Categories"
