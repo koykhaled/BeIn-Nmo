@@ -10,6 +10,7 @@ const router = useRouter();
 let items = ref([]);
 let computed_discount = ref([]);
 let computed_price = ref([]);
+let menu = ref([]);
 
 let loading = ref(true);
 
@@ -24,6 +25,7 @@ const getItems = async () => {
     items.value = response.data.items;
     computed_discount.value = response.data.computed_discount;
     computed_price.value = response.data.computed_price;
+    menu.value = response.data.menu;
 };
 
 async function deleteItem(itemSlug) {
@@ -51,7 +53,7 @@ async function deleteItem(itemSlug) {
     <div v-else class="details">
         <div class="topic__header">
             <div>
-                <h2>Menu Items</h2>
+                <h2>{{ menu }}</h2>
                 <p v-if="items.length == 1">{{ items.length }} Item</p>
                 <p v-else-if="items.length > 1">{{ items.length }} Items</p>
                 <p>Menu price : {{ computed_price }}</p>
