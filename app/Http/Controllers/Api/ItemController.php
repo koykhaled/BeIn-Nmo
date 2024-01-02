@@ -34,8 +34,19 @@ class ItemController extends Controller
         // when we add authentication system then we need to update value of id into Auth::id()
         $menu = Menu::where('user_id', '1')->first();
         $items = ItemResource::collection($menu->items);
+        $computed_discount = 0;
+        $computed_price = 0;
+
+        foreach ($items as $item) {
+            if ($item->discount_price != null) {
+                $computed_discount += $item->price - $item->discount_price;
+            }
+            $computed_price += $item->price;
+        }
 
         return response()->json([
+            'computed_discount' => $computed_discount,
+            'computed_price' => $computed_discount,
             'menu' => $menu->name,
             'items' => $items,
             'message' => "All Categories"
