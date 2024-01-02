@@ -12,7 +12,8 @@ class Item extends Model
     protected $fillable = [
         'name',
         'description',
-        'price'
+        'price',
+        'menu_id'
     ];
 
     public static function boot()
