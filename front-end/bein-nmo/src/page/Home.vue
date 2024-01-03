@@ -2,11 +2,6 @@
     <div class="main">
         <Header v-if="$route.meta.noHeader !== true"></Header>
         <Content />
-        <!-- <Suspense>
-			<template #default>
-			</template>
-			<template #fallback> Loadin..... </template>
-		</Suspense> -->
     </div>
     <div class="container">
         <Navigation v-if="$route.meta.noHeader !== true" />
