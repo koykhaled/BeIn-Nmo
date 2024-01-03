@@ -21,7 +21,6 @@ onMounted(async () => {
 
 const getItems = async () => {
     let response = await axios.get("/api/items");
-    console.log(response.data.computed_discount);
     items.value = response.data.items;
     computed_discount.value = response.data.computed_discount;
     computed_price.value = response.data.computed_price;
@@ -32,12 +31,10 @@ async function deleteItem(itemSlug) {
     loading.value = true;
 
     try {
-        // await axios.delete(`/api/items/${itemSlug}`).then(res => {
-        // 	alert("Item deleted successfully");
-        console.log(itemSlug);
-        // });
+        await axios.delete(`/api/items/${itemSlug}`).then((res) => {
+            alert("Item deleted successfully");
+        });
     } catch (err) {
-        console.error(err);
         alert("Error deleting Item");
     } finally {
         loading.value = false;
