@@ -8,6 +8,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Category;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -16,8 +17,12 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = CategoryResource::collection(Category::all());
+        if (!Cache::has('cateories')) {
+            $data = CategoryResource::collection(Category::all());
+            Cache::put('categories', $data, '86400');
+        }
 
+        $categories = Cache::get('categories');
         // return $this->successResponse(compact('categories'), "All Categories are retrived", 200);
         return response()->json([
             'categories' => $categories,

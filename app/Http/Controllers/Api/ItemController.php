@@ -12,6 +12,8 @@ use App\Models\Menu;
 use App\Services\DiscountService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
 
 class ItemController extends Controller
 {
@@ -32,8 +34,13 @@ class ItemController extends Controller
     public function index()
     {
         // when we add authentication system then we need to update value of id into Auth::id()
-        $menu = Menu::where('user_id', '1')->first();
-        $items = ItemResource::collection($menu->items);
+
+        if (!Cache::has('menu')) {
+            $menu = Menu::where('user_id', '1')->first();
+            $data = ItemResource::collection($menu->items);
+            Cache::put('items', $data, '86400');
+        }
+        $items = Cache::get('items');
         $computed_discount = 0;
         $computed_price = 0;
 
